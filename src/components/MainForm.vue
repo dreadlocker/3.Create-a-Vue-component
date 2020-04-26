@@ -7,25 +7,25 @@
       />
       <FormButton
         :allProductsObj="allProductsObj"
-        :text="text"
+        :btnText="btnText"
         :productName="productName"
-        @generatingLinksArray="sendArrayToFormOutput"
+        @linksArray="sendArrayToFormOutput"
       />
     </div>
 
     <div class="form-right-side">
       <FormOutput
-        :generatingLinksArray="generatingLinksArray"
+        :linksArray="linksArray"
       />
     </div>
   </form>
 </template>
 
 <script>
+import api from "@/assets/api.json";
 import FormDropdown from "./FormDropdown.vue";
 import FormButton from "./FormButton.vue";
 import FormOutput from "./FormOutput.vue";
-import api from "@/assets/api.json";
 // import axios from "axios";
 
 /**
@@ -48,11 +48,11 @@ export default {
   },
   data() {
     return {
-      allProductsObj: [],
+      allProductsObj: api.subscription.buy,
       optionsArray: [],
-      text: "Search",
+      btnText: "Search",
       productName: "",
-      generatingLinksArray: []
+      linksArray: []
     };
   },
   methods: {
@@ -60,31 +60,11 @@ export default {
       return this.productName = str;
     },
     sendArrayToFormOutput(arr) {
-      return this.generatingLinksArray = arr;
+      return this.linksArray = arr;
     }
   },
-  beforeMount() {
-    // const url = "https://www.acronis.com/en-us/api/v1/price/?machine_name=acronis_backup&locale=en-us";
-    // axios(url, {
-    //   method: "GET",
-    //   mode: "no-cors",
-    //   headers: {
-    //     "Access-Control-Allow-Origin": "*",
-    //     "Content-Type": "application/json",
-    //   },
-    //   withCredentials: true,
-    //   credentials: "same-origin",
-    // }).then(response => {
-    //   console.log(response);
-    // });
-
-    this.allProductsObj = api.subscription.buy;
-    const optionsArray = [];
-    for (const key in this.allProductsObj) {
-      const obj = this.allProductsObj[key];
-      optionsArray.push(obj.product_name);
-    }
-    return this.optionsArray = optionsArray;
+  mounted() {
+    return this.optionsArray = Object.values(this.allProductsObj).map(obj => obj.product_name);
 
     // const url = "https://www.acronis.com/en-us/api/v1/price/?machine_name=acronis_backup&locale=en-us";
     // axios.get(url)

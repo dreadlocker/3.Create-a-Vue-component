@@ -1,5 +1,5 @@
 <template>
-  <button @click.prevent="submit" class="btn-submit" type="submit">{{text}}</button>
+  <button @click.prevent="submit" class="btn-submit" type="submit">{{btnText}}</button>
 </template>
 
 <script>
@@ -10,7 +10,7 @@ export default {
       type: Object,
       required: true
     },
-    text: {
+    btnText: {
       type: String,
       required: true
     },
@@ -22,16 +22,12 @@ export default {
   methods: {
     submit() {
       if(!this.productName) return;
+
       const allProductsArray = Object.values(this.allProductsObj);
       const filteredProductsArray = allProductsArray.filter(obj => obj.product_name === this.productName);
-      const generatingLinksArray = [];
-      filteredProductsArray.forEach(obj => generatingLinksArray.push({
-        store: obj.store,
-        cb_id: obj.cb_id,
-        currency: obj.currency,
-      }));
+      const linksArray = filteredProductsArray.map(obj => `https://store.acronis.com/${obj.store}/purl-consumer-standard-US?cart=${obj.cb_id}&currencies=${obj.currency}`);
       
-      return this.$emit("generatingLinksArray", generatingLinksArray);
+      return this.$emit("linksArray", linksArray);
 
     }
   }

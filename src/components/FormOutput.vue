@@ -14,21 +14,10 @@
 export default {
   name: "FormOutput",
   props: {
-    generatingLinksArray: {
+    linksArray: {
       type: Array,
       required: true
     },
-  },
-  data() {
-    return {
-      linksArray: []
-    };
-  },
-  watch: {
-    generatingLinksArray: function (arrayFromParent) {
-      this.linksArray = [];
-      return arrayFromParent.forEach(obj => this.linksArray.push(`https://store.acronis.com/${obj.store}/purl-consumer-standard-US?cart=${obj.cb_id}&currencies=${obj.currency}`));
-    }
   }
 };
 </script>
