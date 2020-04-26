@@ -1,7 +1,7 @@
 # 3.Create-a-Vue-component
 ## How to start the project
 * open terminal
-* git clone https://github.com/dreadlocker/1.Create-an-HTML-slice.git
+* git clone https://github.com/dreadlocker/3.Create-a-Vue-component.git
 * cd 1.Create-an-HTML-slice
 * npm i
 * npm run serve
